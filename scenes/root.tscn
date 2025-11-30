@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnrsk1f1xwted"]
+[gd_scene load_steps=22 format=3 uid="uid://cnrsk1f1xwted"]
 
 [ext_resource type="PackedScene" uid="uid://bomtc57u6f6pj" path="res://scenes/player/player.tscn" id="1_j5px3"]
 [ext_resource type="Script" uid="uid://bw0lboq6cpcl3" path="res://scripts/root.gd" id="1_lrqlo"]
 [ext_resource type="Script" uid="uid://riwqyshax745" path="res://scripts/entity/entity.gd" id="2_twpsu"]
 [ext_resource type="PackedScene" uid="uid://hd832yv8jmxq" path="res://scenes/platform_spwaner.tscn" id="4_sqa0i"]
+[ext_resource type="Texture2D" uid="uid://csvy8cv013yle" path="res://assest/Coin_Silver/Coin_Silver-Sheet.png" id="5_jh1ax"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_twpsu"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -21,6 +22,98 @@ fog_light_color = Color(0.4745098, 0.5529412, 0.60784316, 1)
 fog_density = 0.05
 fog_height_density = 2.0
 adjustment_enabled = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kycxp"]
+atlas = ExtResource("5_jh1ax")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j287u"]
+atlas = ExtResource("5_jh1ax")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sfjl"]
+atlas = ExtResource("5_jh1ax")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hfy5"]
+atlas = ExtResource("5_jh1ax")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7pvxh"]
+atlas = ExtResource("5_jh1ax")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3xxt"]
+atlas = ExtResource("5_jh1ax")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsp7o"]
+atlas = ExtResource("5_jh1ax")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5cgh"]
+atlas = ExtResource("5_jh1ax")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgks2"]
+atlas = ExtResource("5_jh1ax")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dylgi"]
+atlas = ExtResource("5_jh1ax")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrhyn"]
+atlas = ExtResource("5_jh1ax")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_log26"]
+atlas = ExtResource("5_jh1ax")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gt4lb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kycxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j287u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sfjl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hfy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pvxh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3xxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsp7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5cgh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgks2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dylgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jrhyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_log26")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
 
 [node name="root" type="Node3D"]
 script = ExtResource("1_lrqlo")
@@ -61,6 +154,26 @@ offset_top = 199.0
 offset_right = 368.0
 offset_bottom = 383.0
 text = "end turn"
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimatedSprite3D" type="AnimatedSprite2D" parent="CanvasLayer/Control"]
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_gt4lb")
+autoplay = "default"
+frame_progress = 0.41994742
 
 [connection signal="pressed" from="CanvasLayer/Button" to="player" method="start_turn"]
 [connection signal="pressed" from="CanvasLayer/Button2" to="player" method="_end_turn"]
