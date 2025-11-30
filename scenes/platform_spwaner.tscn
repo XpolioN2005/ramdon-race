@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://hd832yv8jmxq"]
+
+[ext_resource type="Script" uid="uid://cyclv62t41hg0" path="res://scripts/platform_spwaner.gd" id="1_ysuvb"]
+
+[node name="platform_spwaner" type="Node3D"]
+script = ExtResource("1_ysuvb")

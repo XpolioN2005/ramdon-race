@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnrsk1f1xwted"]
+
+[ext_resource type="PackedScene" uid="uid://bomtc57u6f6pj" path="res://scenes/player/player.tscn" id="1_j5px3"]
+[ext_resource type="Script" uid="uid://bw0lboq6cpcl3" path="res://scripts/root.gd" id="1_lrqlo"]
+[ext_resource type="Script" uid="uid://riwqyshax745" path="res://scripts/entity/entity.gd" id="2_twpsu"]
+[ext_resource type="PackedScene" uid="uid://hd832yv8jmxq" path="res://scenes/platform_spwaner.tscn" id="4_sqa0i"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_twpsu"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_lrqlo"]
+sky_material = SubResource("ProceduralSkyMaterial_twpsu")
+
+[sub_resource type="Environment" id="Environment_sqa0i"]
+background_mode = 2
+sky = SubResource("Sky_lrqlo")
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.4745098, 0.5529412, 0.60784316, 1)
+fog_density = 0.05
+fog_height_density = 2.0
+adjustment_enabled = true
+
+[node name="root" type="Node3D"]
+script = ExtResource("1_lrqlo")
+
+[node name="platform_spwaner" parent="." instance=ExtResource("4_sqa0i")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sqa0i")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="player" parent="." instance=ExtResource("1_j5px3")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1)
+script = ExtResource("2_twpsu")
+
+[node name="Camera3D" type="Camera3D" parent="player"]
+transform = Transform3D(-4.371139e-08, 0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 1, 3.090862e-08, -3.090862e-08, -2, 2.5, -1)
+
+[node name="bot" parent="." instance=ExtResource("1_j5px3")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1)
+script = ExtResource("2_twpsu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_right = 359.0
+offset_bottom = 184.0
+text = "roll
+"
+
+[node name="Button2" type="Button" parent="CanvasLayer"]
+offset_left = 9.0
+offset_top = 199.0
+offset_right = 368.0
+offset_bottom = 383.0
+text = "end turn"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="player" method="start_turn"]
+[connection signal="pressed" from="CanvasLayer/Button2" to="player" method="_end_turn"]

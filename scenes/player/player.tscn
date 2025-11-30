@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bomtc57u6f6pj"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x7p2l"]
+friction = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_x7p2l"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8afob"]
+
+[node name="player" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_x7p2l")
+lock_rotation = true
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
+mesh = SubResource("CapsuleMesh_x7p2l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_8afob")
