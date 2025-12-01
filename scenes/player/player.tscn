@@ -1,9 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://bomtc57u6f6pj"]
+[gd_scene load_steps=7 format=3 uid="uid://bomtc57u6f6pj"]
+
+[ext_resource type="Shader" uid="uid://qnwa2lp31iuy" path="res://shader/player.gdshader" id="1_8afob"]
+[ext_resource type="Script" uid="uid://riwqyshax745" path="res://scripts/entity/entity.gd" id="1_dovo2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x7p2l"]
 friction = 0.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dovo2"]
+render_priority = 0
+shader = ExtResource("1_8afob")
+shader_parameter/mesh_color = Color(2.3102762e-06, 0.6104927, 0.63359946, 1)
+shader_parameter/outline_color = Color(1, 1, 0, 1)
+shader_parameter/outline_size = 0.800000038
+shader_parameter/outline_strength = 1.0
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x7p2l"]
+material = SubResource("ShaderMaterial_dovo2")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8afob"]
 
@@ -12,6 +24,7 @@ physics_material_override = SubResource("PhysicsMaterial_x7p2l")
 lock_rotation = true
 linear_damp_mode = 1
 angular_damp_mode = 1
+script = ExtResource("1_dovo2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)

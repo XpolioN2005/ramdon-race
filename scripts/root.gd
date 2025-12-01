@@ -43,11 +43,11 @@ func run_bot_roll():
 
 	# Decide AFTER this roll whether to continue
 	var push_luck := RngGimmicks.coin_flip()
-
+	
+	# wait so we don't stack logic and also looks good
+	await get_tree().create_timer(0.5).timeout
 	if push_luck:
 		print("Bot decides to reroll")
-		# wait one frame so we don't stack logic
-		await get_tree().process_frame
 		run_bot_roll()
 	else:
 		print("Bot decides to stop")
