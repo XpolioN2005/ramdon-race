@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 RngGimmicks="*res://scripts/Global/rng_gimmicks.gd"
 SignalBus="*res://scripts/Global/signal_bus.gd"
+GameManager="*res://scripts/Global/Game_manager.gd"
 
 [physics]
 

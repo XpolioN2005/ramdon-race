@@ -76,3 +76,10 @@ func _on_entity_landed(entity):
 		turn_number += 1
 
 	start_turn()
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body.is_player:
+		print("player won")
+	else:
+		print("bot won")
