@@ -1,9 +1,10 @@
-[gd_scene load_steps=65 format=3 uid="uid://cnrsk1f1xwted"]
+[gd_scene load_steps=69 format=3 uid="uid://cnrsk1f1xwted"]
 
 [ext_resource type="PackedScene" uid="uid://bomtc57u6f6pj" path="res://scenes/player/player.tscn" id="1_j5px3"]
 [ext_resource type="Script" uid="uid://bw0lboq6cpcl3" path="res://scripts/root.gd" id="1_lrqlo"]
 [ext_resource type="PackedScene" uid="uid://hd832yv8jmxq" path="res://scenes/platform_spwaner.tscn" id="4_sqa0i"]
 [ext_resource type="Texture2D" uid="uid://csvy8cv013yle" path="res://assest/Coin_Silver/Coin_Silver-Sheet.png" id="5_jh1ax"]
+[ext_resource type="Shader" uid="uid://dekt073fav5co" path="res://shader/checkerboard.gdshader" id="5_kycxp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_twpsu"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -427,6 +428,20 @@ animations = [{
 "speed": 18.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j287u"]
+render_priority = 0
+shader = ExtResource("5_kycxp")
+shader_parameter/color_a = Vector3(0.1, 0.1, 0.1)
+shader_parameter/color_b = Vector3(0.9, 0.9, 0.9)
+shader_parameter/cell_size = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_sqa0i"]
+material = SubResource("ShaderMaterial_j287u")
+size = Vector3(1, 1, 3)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jh1ax"]
+points = PackedVector3Array(0.5, 0.5, 1.5, 0.5, -0.5, 1.5, 0.5, 0.5, -1.5, -0.5, 0.5, 1.5, -0.5, -0.5, 1.5, 0.5, -0.5, -1.5, -0.5, 0.5, -1.5, -0.5, -0.5, -1.5)
+
 [node name="root" type="Node3D"]
 script = ExtResource("1_lrqlo")
 
@@ -441,14 +456,14 @@ shadow_enabled = true
 
 [node name="player" parent="." instance=ExtResource("1_j5px3")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 1)
 
 [node name="Camera3D" type="Camera3D" parent="player"]
 transform = Transform3D(-4.371139e-08, 0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 1, 3.090862e-08, -3.090862e-08, -2, 2.5, -1)
 
 [node name="bot" parent="." instance=ExtResource("1_j5px3")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -1)
 is_player = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -460,9 +475,8 @@ text = "roll
 "
 
 [node name="Button2" type="Button" parent="CanvasLayer"]
-offset_left = 9.0
 offset_top = 199.0
-offset_right = 368.0
+offset_right = 359.0
 offset_bottom = 383.0
 text = "end turn"
 
@@ -485,7 +499,18 @@ visible = false
 position = Vector2(16, 16)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_gt4lb")
-animation = &"rool_to_save"
+animation = &"roll_to_death"
+frame = 24
+frame_progress = 1.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_sqa0i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_jh1ax")
 
 [connection signal="pressed" from="CanvasLayer/Button" to="player" method="start_turn"]
 [connection signal="pressed" from="CanvasLayer/Button2" to="player" method="_end_turn"]
